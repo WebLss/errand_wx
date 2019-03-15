@@ -1,0 +1,52 @@
+{
+  "pages":[
+    
+    "pages/start/start",
+    "pages/auth/auth",
+    "pages/login/login",
+    "pages/index/index",
+    "pages/custom/order/list",
+    "pages/custom/center/center",
+    "pages/custom/address/pick",
+    "pages/custom/address/search",
+    "pages/custom/address/add",
+    "pages/logs/logs",
+    "pages/camera/camera",
+    "pages/camera/canvas"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ffc629",
+    "navigationBarTitleText": "疯狂跑腿",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#000000",
+    "enablePullDownRefresh": true
+  },
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#fcb900",
+    "borderStyle": "black",
+    "backgroundColor": "#fff",
+    "position": "bottom",
+    "list": [
+      {
+        "text": "首页",
+        "pagePath": "pages/index/index",
+        "iconPath": "images/zhuye.png",
+        "selectedIconPath": "images/hlzhuye.png"
+      },
+      {
+        "text": "我的订单",
+        "pagePath": "pages/custom/order/list",
+        "iconPath": "images/wodedingdan.png",
+        "selectedIconPath": "images/hlwodedingdan.png"
+      },
+      {
+        "text": "个人中心",
+        "pagePath": "pages/custom/center/center",
+        "iconPath": "images/gerenzhongxin.png",
+        "selectedIconPath": "images/hlgerenzhongxin.png"
+      }
+    ]
+  }
+}
