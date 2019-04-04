@@ -1,20 +1,23 @@
 // pages/custom/center/center.js
 //获取应用实例
 const app = getApp();
+const { $Toast } = require('../../../dist/base/index');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    wxInfo: wx.getStorageSync('userInfo'), // 获取微信的个人数据
+    userInfo: ''
   },
 
+  
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+       console.log("djjdj")
   },
 
   /**
@@ -29,6 +32,7 @@ Page({
    */
   onShow: function () {
     console.log("onSHow");
+    var that = this;
     wx.request({
       url: app.globalData.baseUrl + '/login/getUserInfo',//自己的服务接口地址
       method: 'POST',
@@ -38,46 +42,30 @@ Page({
       },
       dataType: 'json',
       success: function (data) {
-         console.log(data.data);
+        console.log(data.data);
+        if (data.data.responseCode == "SC0000") {
+          that.setData({
+            userInfo: data.data.payload
+          });
+          
+        } else {
+          $Toast({
+            content: '获取用户信息失败！',
+            type: 'success'
+          });
+        }
+          
       },
       fail: function () {
-         
+        $Toast({
+          content: '网络异常',
+          type: 'error'
+        });
       }
     })
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
+  
+  
+ 
 })

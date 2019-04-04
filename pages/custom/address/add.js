@@ -10,6 +10,7 @@ Page({
     url: 'pick'
   },
   onLoad: function (options) {
+    console.log(options);
     // 经纬度存在
     if (options.lat && options.lng) {
       this.setData({
@@ -36,9 +37,6 @@ Page({
         address: options.address,
         name: options.name,
         phone: options.phone,
-        orderType: options.orderType,
-        addressType: options.addressType,
-        title: options.title,
         adcode: options.adcode
       });
       wx.setNavigationBarTitle({
@@ -187,12 +185,12 @@ Page({
       console.log(data);
       if(data.responseCode == "SC0000") {
         $Toast({
-          content: '添加地址成功！',
+          content: '保存地址成功！',
           type: 'success'
         });
       } else {
         $Toast({
-          content: '添加地址失败！',
+          content: data.responseMessage,
           type: 'error'
         });
       }

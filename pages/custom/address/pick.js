@@ -1,6 +1,7 @@
 const app = getApp();
 const util = require('../../../utils/util.js');
 const service = util.service;
+const { $Toast } = require('../../../dist/base/index');
 Page({
   data: {
     isEmpty: false,
@@ -98,10 +99,16 @@ Page({
     service({
       url: '/address/list',
       data: {
-        name: key
+        areaName: key
       }
     }, res => {
       console.log(res);
+      if(res.status == 302) {
+
+         
+         return ;
+      }
+
       if (!res.payload.length) {
         that.setData({
           listIsNull: true,
@@ -140,6 +147,7 @@ Page({
   },
   deleteAddress: function (e) {
     let that = this;
+    console.log(e);
     wx.showModal({
       content: '地址删除后将无法恢复，您确定要删除吗？',
       success: res => {
@@ -147,16 +155,16 @@ Page({
           return false;
         }
         service({
-          url: '/rest/wx/apis/user/address/delete',
+          url: '/address/delete',
           method: 'POST',
           data: {
             id: e.currentTarget.dataset.id
           }
         }, res => {
           service({
-            url: '/rest/wx/apis/user/address/list'
+            url: '/address/list'
           }, res => {
-            if (!res.result.length) {
+            if (!res.payload.length) {
               that.setData({
                 listIsNull: true,
                 addressList: null
@@ -164,7 +172,7 @@ Page({
               return false;
             }
             that.setData({
-              addressList: res.result
+              addressList: res.payload
             })
           });
         })
@@ -174,8 +182,9 @@ Page({
   editAddress: function (e) {
     var info = e.currentTarget.dataset.info,
       data = this.data;
+      console.log(info);
     wx.redirectTo({
-      url: 'add?id=' + info.id + '&lat=' + info.latitude + '&lng=' + info.longitude + '&address=' + info.address + '&name=' + info.name + '&phone=' + info.phone + '&areaName=' + info.area_name + '&addressType=' + data.addressType + '&orderType=' + data.orderType + '&title=' + data.title
+      url: 'add?id=' + info.id + '&lat=' + info.latitude + '&lng=' + info.longitude + '&address=' + info.address + '&name=' + info.name + '&phone=' + info.phone + '&areaName=' + info.areaName + '&adcode=' + info.adcode + '&title=' + data.title
     })
   }
 })

@@ -2,6 +2,6 @@
   "navigationBarTitleText": "新增地址",
   
   "usingComponents": {
-    "i-toast": "../../dist/toast/index"
+    "i-toast": "../../../dist/toast/index"
   }
 }

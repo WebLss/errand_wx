@@ -20,7 +20,7 @@
               <text class='td-right column-item'>{{item.phone}}</text>
                 <text class='td-right' catchtap='editAddress' data-info="{{item}}">编辑</text>
                 <text class='td-right' catchtap='deleteAddress' data-id="{{item.id}}">删除</text>
-              
+                
             </view>
           </view>
         </view>
@@ -28,6 +28,7 @@
     </view>
     
   </scroll-view>
+  <i-toast id="toast" />
   <view class='button-group' style="position:fixed;width:100%;bottom:0;background:#fff;">
       <navigator class="large-btn-yellow" plain='false' url='search?orderType={{orderType}}&addressType={{addressType}}&title={{title}}'>+ 新增地址</navigator>
   </view>
