@@ -188,6 +188,10 @@ Page({
           content: '保存地址成功！',
           type: 'success'
         });
+        setTimeout(()=> {
+           wx.navigateBack({
+           })
+        },1500)
       } else {
         $Toast({
           content: data.responseMessage,

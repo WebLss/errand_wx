@@ -38,6 +38,7 @@ Page({
     }
   },
   onLoad: function (options) {
+    console.log(options);
     let that = this;
     // 选择地址
     // if (options.orderType !== undefined && options.orderType !== "null") {
@@ -79,11 +80,12 @@ Page({
     //   setMasterUrl: 'search?master=1&title=' + options.title + '&orderType=' + options.orderType + '&addressType=' + options.addressType
     // })
     console.log("执行中。。。。。");
-    this.getlist()
+    //this.getlist()
 
   },
-  onShow: function () {
-
+  onShow: function (option) {
+    console.log(option);
+    this.getlist()
   },
   getlist: function (opt) {
     var that = this,

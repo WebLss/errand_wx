@@ -34,7 +34,8 @@ App({
     })
   },
   globalData: {
-    baseUrl: 'http://172.28.6.20:8080/api/v1',
+    //baseUrl: 'http://172.28.6.20:8080/api/v1',
+    baseUrl: 'http://192.168.0.104:8080/api/v1',
     adminUrl: '',
     userInfo: null,
     openId: '',
