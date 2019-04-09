@@ -40,48 +40,27 @@ Page({
   onLoad: function (options) {
     console.log(options);
     let that = this;
-    // 选择地址
-    // if (options.orderType !== undefined && options.orderType !== "null") {
-    //   wx.setNavigationBarTitle({
-    //     title: options.title || "地址管理"
-    //   });
-    //   var masterAddressIsNull = true;
-    //   if (options.orderType == 1) {
-    //     if (options.addressType == 2) {
-    //       masterAddressIsNull = false;
-    //     }
-    //   }
-    //   if (options.orderType == 2) {
-    //     if (options.addressType == 1) {
-    //       masterAddressIsNull = false;
-    //     }
-    //   }
-    //   if (options.master) {
-    //     this.setData({
-    //       master: 1,
-    //       sortMode: 'master'
-    //     })
-    //   }
-    //   that.setData({
-    //     orderType: options.orderType,
-    //     addressType: options.addressType,
-    //     title: options.title,
-    //     react: true,
-    //     masterAddressIsNull: masterAddressIsNull
-    //   })
+    //选择地址
+    if (options.orderType !== undefined && options.orderType !== "null") {
+      wx.setNavigationBarTitle({
+        title: options.title || "地址管理"
+      });
+  
+      that.setData({
+        orderType: options.orderType,
+        addressType: options.addressType,
+        title: options.title,
+        react: true,
+      })
+      console.log("react"+this.data.react)
 
-    // } else {
-    //   wx.setNavigationBarTitle({
-    //     title: "地址管理",
-    //     masterAddressIsNull: false
-    //   });
-    // }
-    // this.setData({
-    //   setMasterUrl: 'search?master=1&title=' + options.title + '&orderType=' + options.orderType + '&addressType=' + options.addressType
-    // })
+    } else {
+      wx.setNavigationBarTitle({
+        title: "地址管理"
+      });
+    }
     console.log("执行中。。。。。");
     //this.getlist()
-
   },
   onShow: function (option) {
     console.log(option);
@@ -136,6 +115,8 @@ Page({
     });
   },
   chooseAddress: function (e) {
+    console.log("chooseAddress");
+    console.log(e);
     let data = e.currentTarget.dataset.info
     if (!this.data.react) {
       return false;

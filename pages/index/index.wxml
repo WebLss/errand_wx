@@ -72,7 +72,6 @@
     </block>
     <view class='textarea'>
       <textarea  placeholder='请输入详细要求~' placeholder-class='placeholder' bindinput='getNote' value="{{_note}}"></textarea>
-      <view class="sys" bindtap='camera'></view>
     </view>
     <view class="float-list">
       <view class="float-item-left">
