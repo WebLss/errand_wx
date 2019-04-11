@@ -25,6 +25,40 @@ Page({
       method: 'GET'
     }, res => {
       console.log(res.payload);
+      if (res.responseCode === 'ER0001') {
+        wx.showToast({
+          title: res.responseMessage,
+          icon: "none"
+        });
+        setTimeout(() => {
+          wx.redirectTo({
+            url: '../../start/start'
+          })
+        }, 1500)
+      } else {
+        
+        if (res.payload.list.length) {
+          let thisTime = null;
+          let time = null;
+          let nowTime = (new Date()).getTime();
+
+          for (var i = 0; i < res.payload.list.length; i++) {
+            thisTime = res.payload.list[i].getTime;
+            //thisTime = thisTime.replace(/-/g, '/');
+            time = new Date(thisTime);
+            time = time.getTime();
+            //console.log(time);
+            if (time - nowTime < 0) {
+              res.payload.list[i].remain_time = -parseInt((nowTime - time) / 1000 / 60); // 超时多少分钟
+            } else {
+              res.payload.list[i].remain_time = parseInt((time - nowTime) / 1000 / 60); // 剩余多少分钟
+            }
+          }
+          console.log(res)
+        }
+      }
+      
+
       typeof callback == "function" && callback(res)
     });
   },

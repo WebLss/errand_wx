@@ -39,17 +39,17 @@
         <view class="float-list" wx:if="{{item.status=='wait_rec'}}">
           <text class="float-item-left yellow">工作人员将电话联系您确认订单,请您留意接听电话!</text>
         </view>
-        <view class="float-list" wx:if="{{item.status=='wait_get'}}">
-          <text class="float-item-left" wx:if="{{item.remain_time <= 0}}">剩余{{item.remain_time}}分钟</text>
-          <text class="float-item-left red" wx:if="{{item.remain_time > 0}} ">超时{{item.remain_time}}分钟</text>
+        <view class="float-list" wx:if="{{item.remain_time >= 0}}">
+          <text class="float-item-left">剩余{{item.remain_time}}分钟</text>
+          <!-- <text class="float-item-left red" wx:if="{{item.remain_time < 0}}">超时{{item.remain_time}}分钟</text> -->
 
-          <button class="float-item-right middle-btn-yellow" plain='false' bindtap='makePhoneCall' data-phone="{{item.mobiletel}}">联系配送员</button>
-          <button class="float-item-right middle-btn-yellow" plain='false' data-id="{{item.id}}" catchtap='reminderOrd'>我要催单</button>
+          <button class="float-item-right middle-btn-yellow" plain='false' style='font-size:13px;padding: 0px 10px;' bindtap='makePhoneCall' data-phone="{{item.mobiletel}}">联系配送员</button>
+          <button class="float-item-right middle-btn-yellow" style='font-size:13px;padding: 0px 10px;' plain='false' data-id="{{item.id}}" catchtap='reminderOrd'>我要催单</button>
         </view>
-        <view class="float-list" wx:if="{{item.status=='wait_pay'}}">
-          <button class="float-item-right middle-btn-yellow" wx:if="{{item.status=='wait_pay'}}" plain='false' catchtap='return false' hover-class='none' data-id="{{item.id}}" catchtap='ordPay'>立即付款</button>
+        <view class="float-list" wx:if="{{item.status==1}}">
+          <button class="float-item-right middle-btn-yellow"  plain='false' catchtap='return false' hover-class='none' data-id="{{item.id}}" catchtap='ordPay'>立即付款</button>
         </view>
-        <view class="float-list" wx:if="{{item.status=='finish'&&item.evaluation_status=='wait'}}">
+        <view class="float-list" wx:if="{{item.status== 4 }}">
           <button class="float-item-right middle-btn-yellow" bindtap="addScore" data-info="{{item}}" plain='false'>立即评价</button>
         </view>
       </navigator>

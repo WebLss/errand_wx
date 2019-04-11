@@ -86,7 +86,9 @@ Page({
       console.log(res);
       if(res.status == 302) {
 
-         
+         wx.redirectTo({
+           url: '../../start/start',
+         })
          return ;
       }
 
