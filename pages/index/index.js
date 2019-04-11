@@ -2,6 +2,7 @@
 const app = getApp()
 const util = require('../../utils/util.js');
 const GDmap = require('../../libs/amap-wx.js');
+const { $Message } = require('../../dist/base/index');
 const service = util.service;
 Page({
   data: {
@@ -19,7 +20,8 @@ Page({
     send: null,
     distance: 0,
     cost: 0,
-    isToday: true
+    isToday: true,
+    pay_show: false
   },
   onLoad: function () {
     let that = this;
@@ -269,7 +271,7 @@ Page({
 
   },
   getNote: function (e) {
-    console.log(e);
+    // console.log(e);
     this.setData({
       note: e.detail.value
     })
@@ -389,7 +391,7 @@ Page({
               name: res.payload.name,
               phone: res.payload.phone,
               areaName: res.payload.areaName,
-              adcode: res.payload.zipCode
+              adcode: res.payload.adcode
             }
           })
         } else if (app.globalData.addressType == 2) {
@@ -402,7 +404,7 @@ Page({
               name: res.payload.name,
               phone: res.payload.phone,
               areaName: res.payload.areaName,
-              adcode: res.payload.zipCode
+              adcode: res.payload.adcode
             }
           })
         }
@@ -513,11 +515,44 @@ Page({
       method: 'POST'
     }, res => {
 
+      if(res.status === 302) {
+        wx.showToast({
+          title: '登录信息过期，请重新登录',
+          icon: "none"
+        });
+        setTimeout(()=>{
+          wx.redirectTo({
+            url: '../../login/login'
+          })
+        }, 1500)
+      } else if (res.responseCode === 'ER0001'){
+        wx.showToast({
+          title: res.responseMessage,
+          icon: "none"
+        });
+      } else {
+        wx.showToast({
+          title: "订单创建成功",
+          icon: "none"
+        });
+        that.setData({
+          orderId: res.payload.orderId
+        })
+        console.log(res);
+        console.log(that.data.orderId)
+        setTimeout(()=> {
+          this.setData({
+            pay_show: true
+          });
+        }, 1000)
 
-      that.setData({
-        ordId: res.payload.id
-      })
-      var id = res.id
+      }
+   
+
+      // that.setData({
+      //   ordId: res.payload.id
+      // })
+      // var id = res.id
       // payment(res.id, () => {
       //   wx.navigateTo({
       //     url: '../custom/order/detail?id=' + res.id,
@@ -530,6 +565,43 @@ Page({
       // })
     })
   },
+  // 支付
+  toPay: function() {
+    this.setData({
+      pay_show: false
+    });
+    console.log(this.data.orderId)
+    if(this.data.orderId) {
+      service({
+        url: '/order/toPay',
+        data: {orderId: this.data.orderId},
+        method: 'POST'
+      }, res => { 
+        if (res.responseCode === 'SC0000') {
+          $Message({
+            content: '支付成功',
+            type: 'success'
+          });
+        } else {
+          $Message({
+            content: res.responseMessage,
+            type: 'error'
+          });
+        }
+      })
+    } else {
+      $Message({
+        content: '并无此订单号',
+        type: 'error'
+      });
+    }
+  },
+  cancelPay: function() {
+    this.setData({
+      pay_show: false
+    });
+  },
+
   examTime: function () {
     if (!this.data.get_time) {
       wx.showToast({

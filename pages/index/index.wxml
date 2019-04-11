@@ -95,5 +95,8 @@
   </view>
 
   <text class="rule" wx:if="{{slideRules}}" style="text-align:left;">{{rule}}</text>
-
+  <i-modal visible="{{ pay_show }}" bind:ok="toPay" bind:cancel="cancelPay">
+      <view>确定支付￥{{cost}}</view>
+  </i-modal>
+  <i-message id="message" />
 </view>
