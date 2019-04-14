@@ -9,7 +9,7 @@ Page({
     isEmpty: false,
     pageIndex: 1,
     hasNext: true,
-    status: "",
+    status: 2,
     wxInfo: wx.getStorageSync('userInfo'), // 获取微信的个人数据
   },
   onLoad: function () {
@@ -18,7 +18,7 @@ Page({
   getlist: function (opt, callback) {
     var that = this
     service({
-      url: '/order/list',
+      url: '/order/gradList',
       data: {
         status: opt.status,
         pageSize: opt.pageSize || 5,
@@ -38,7 +38,7 @@ Page({
           })
         }, 1500)
       } else {
-        
+
         if (res.payload.list.length) {
           let thisTime = null;
           let time = null;
@@ -64,7 +64,7 @@ Page({
           res.hasNext = false;
         }
       }
-      
+
 
       typeof callback == "function" && callback(res)
     });
@@ -105,20 +105,20 @@ Page({
       currentIndex: index
     })
 
-    app.globalData.getOrdList = {
+    app.globalData.getOrdLists = {
       tab: index,
       status: that.data.status
     }
   },
   onShow: function () {
-    var status = 0, currentIndex = 1, that = this;
+    var status = 2, currentIndex = 1, that = this;
     this.setData({
       hasNext: true,
       pageIndex: 1
     })
-    if (app.globalData.getOrdList) {
-      status = app.globalData.getOrdList.status;
-      currentIndex = app.globalData.getOrdList.tab
+    if (app.globalData.getOrdLists) {
+      status = app.globalData.getOrdLists.status;
+      currentIndex = app.globalData.getOrdLists.tab
     }
     wx.getSystemInfo({
       success: function (res) {
@@ -135,7 +135,7 @@ Page({
 
         return false;
       }
-      console.log("currentIndex",currentIndex)
+      console.log("currentIndex", currentIndex)
       that.setData({
         currentIndex: currentIndex,
         all_list: res.payload.list
@@ -144,18 +144,11 @@ Page({
     })
 
   },
-  onHide: function () {
-    var that = this;
-    app.globalData.getOrdList = {
-      status: that.data.status,
-      tab: that.data.currentIndex
-    }
-  },
-  confirmOrder: function(e) {
+  gradOrder(e) {
     console.log(e);
     let orderId = e.currentTarget.dataset.status || null;
     service({
-      url: '/order/confirmOrder',
+      url: '/order/confirm',
       data: {
         orderId: orderId
       },
@@ -164,33 +157,41 @@ Page({
       console.log(res);
       if (res.responseCode == "SC0000") {
         $Message({
-          content: '确认收货成功',
+          content: '接单成功',
           type: 'success'
         });
         this.onShow();
-      } else if (res.status == 301 || res.status == 302){
-        wx.showToast({
-          title: res.responseMessage,
-          icon: 'none'
-        });
-        setTimeout(()=> {
-          wx.redirectTo({
-            url: '../../start/start',
-          })
-        }, 1500)
-      } else {
-        wx.showToast({
-          title: res.responseMessage,
-          icon: 'none'
-        });
       }
+
+      
     })
+  },
+
+  onHide: function () {
+    var that = this;
+    app.globalData.getOrdLists = {
+      status: that.data.status,
+      tab: that.data.currentIndex
+    }
+  },
+  addScore: function (e) {
+    var data = e.currentTarget.dataset.info;
+    wx.navigateTo({
+      url: '../score/add?id=' + data.id
+    })
+  },
+  makePhoneCall: function (e) {
+    var phone = e.currentTarget.dataset.phone;
+    wx.makePhoneCall({
+      phoneNumber: phone
+    })
+    return false;
   },
   loadMore: function () {
     var pageIndex = this.data.pageIndex,
       status = this.data.status,
       hasNext = this.data.hasNext;
-      console.log(hasNext);
+    console.log(hasNext);
     pageIndex++;
     var that = this;
     this.setData({
@@ -215,7 +216,7 @@ Page({
     var id = e.currentTarget.dataset.id,
       that = this,
       status = this.data.status;
-    
+
   },
   reminderOrd: function (e) {
     var id = e.currentTarget.dataset.id;

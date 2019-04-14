@@ -85,34 +85,49 @@ Page({
     }, res => {
       console.log(res);
       if(res.status == 302) {
-
          wx.redirectTo({
            url: '../../start/start',
          })
          return ;
-      }
-
-      if (!res.payload.length) {
-        that.setData({
-          listIsNull: true,
-          addressList: null
+      } else if(res.status == 301) {
+        wx.showToast({
+          title: res.responseMessage,
+          icon: 'none'
         })
-        console.log(that.data.addressList)
-        return false;
-      }
-      that.setData({
-        addressList: res.payload,
-        listIsNull: false
-      });
-      
-      for (let i = 0; i < res.payload.length; i++) {
-        if (res.payload[i].latitude == app.globalData.latIng.latitude && res.payload[i].longitude == app.globalData.latIng.longitude) {
-          that.setData({
-            currentAddress: res.payload[i]
+        setTimeout(()=> {
+          wx.redirectTo({
+            url: '../../start/start',
           })
-        } 
+        }, 1500)
+        return;
+      } else if(res.status == 0){
+        if (!res.payload.length) {
+          that.setData({
+            listIsNull: true,
+            addressList: null
+          })
+          console.log(that.data.addressList)
+          return false;
+        }
+        that.setData({
+          addressList: res.payload,
+          listIsNull: false
+        });
+
+        for (let i = 0; i < res.payload.length; i++) {
+          if (res.payload[i].latitude == app.globalData.latIng.latitude && res.payload[i].longitude == app.globalData.latIng.longitude) {
+            that.setData({
+              currentAddress: res.payload[i]
+            })
+          }
+        }
+        console.log("currentAddress:" + this.currentAddress);
+      } else {
+        wx.showToast({
+          title: '其他错误',
+          icon: 'none'
+        })
       }
-      console.log("currentAddress:" + this.currentAddress);
       
     });
   },

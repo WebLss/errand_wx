@@ -61,6 +61,7 @@ Page({
                 if (data.data.status == 0) {
                   console.log(data.data);
                   wx.setStorageSync('token', data.data.headers.token);
+                  wx.setStorageSync('userInfo', Object.assign(wx.getStorageSync("userInfo"),data.data.payload));
                   console.log("跳转")
                   wx.switchTab({
                     url: '/pages/index/index',

@@ -7,29 +7,31 @@
     <view class='right'>
       <navigator class="username" url="updateName">{{wxInfo.nickName}}</navigator>
       <text class='userphone'>{{wxInfo.province+' '+wxInfo.city+'.'+wxInfo.country}}</text>
+      <text class='userphone' style='color: black' wx:if="{{userInfo.taker && !userInfo.isSuper}}">您是配送员</text>
+       <text class='userphone' style='color: black' wx:if="{{userInfo.isSuper}}">您是超级管理员</text>
     </view>
   </view>
   <view class='column-lists'>
     <view class='column-items bws' bindtap='switchIndex' data-index="1">帮我送</view>
     <view class='column-items bwm' bindtap='switchIndex' data-index='2'>帮我买</view>
-    <navigator class='column-items psy' bindtap='isDelivery' wx:if="{{userInfo.taker||userInfo.isSuper}}">配送入口</navigator>
-    <navigator class='column-items psy' bindtap='isDelivery' wx:else>申请配送入口</navigator>
+    <navigator class='column-items psy' bindtap='isDelivery' wx:if="{{!userInfo.taker&&!userInfo.isSuper}}">申请配送 </navigator>
+     
     <navigator class='column-items bws' bindtap='isDelivery' wx:if="{{userInfo.isSuper}}">管理入口</navigator>
   </view>
-  <view class='column-list r-arrow'>
+  <!-- <view class='column-list r-arrow'>
     <text class='column-item'>我的订单</text>
     <view class='column-item orders txr' bindtap='switchTab'  data-index='1'>全部订单</view>
-  </view>
+  </view> -->
   <view class='column-list status'>
-    <view class='column-item dfk' bindtap='switchTab' data-index='2' data-status="wait_pay">待付款
+    <view class='column-item dfk' bindtap='switchTab' data-index='2' data-status="getOrder">抢单大厅
       <text class="unread" wx:if="{{dfk}}">{{dfk}}</text>
     </view>
-    <view class='column-item qhz' bindtap='switchTab' data-index='3' data-status="wait_get">待取货
+    <view class='column-item qhz' bindtap='switchTab' data-index='3' data-status="wait_get">收入明细
       <text class="unread" wx:if="{{dqh}}">{{dqh}}</text></view>
-    <view class='column-item shz' bindtap='switchTab' data-index='4' data-status="delivering">待送货
+    <!-- <view class='column-item shz' bindtap='switchTab' data-index='4' data-status="delivering">待送货
       <text class="unread" wx:if="{{dsh}}">{{dsh}}</text>
-    </view>
-    <view class='column-item dpj' bindtap='switchTab'  data-index='5' data-status="finish">待评价
+    </view> -->
+    <view class='column-item dpj' bindtap='switchTab'  data-index='5' data-status="finish">我的评价
       <text class="unread" wx:if="{{dpj}}">{{dpj}}</text>
     </view>
   </view>

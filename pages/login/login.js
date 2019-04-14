@@ -79,14 +79,15 @@ Page({
                   });
                   setTimeout(()=> {
                     wx.switchTab({
-                      url: '/pages/index/index',
+                      url: '/pages/start/start',
                     })
-                  },1000)
+                  },1500)
                 } else {
                   $Toast({
                     content: data.data.responseMessage,
                     type: 'error'
                   });
+                
                   // this.setData({
                   //   errorMsg: data.data.responseMessage
                   // })

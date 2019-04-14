@@ -64,8 +64,13 @@ Page({
       }
     })
   },
-
-  
-  
+  switchTab: function(e){
+    let status = e.currentTarget.dataset.status;
+    if (status == 'getOrder') { // 抢单
+       wx.navigateTo({
+         url: '../../custom/taker/list',
+       }) 
+    }
+  }
  
 })

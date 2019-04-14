@@ -1,66 +1,83 @@
-// pages/custom/order/detail.js
+const app = getApp()
+const util = require('../../../utils/util.js');
+const service = util.service;
+const { $Message } = require('../../../dist/base/index');
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
 
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
-
+    console.log(options)
+    this.setData({
+      orderId: options.orderId
+    })
+    this.getOrder({
+      "orderId": options.orderId
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
 
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  getOrder: function (opt) {
+    var that = this;
+    service({
+      url: '/order/find',
+      data: opt,
+      method: 'GET'
+    }, res => {
+      if (res.responseCode === 'SC0000') {
+        that.setData({
+          order: res.payload
+        })
+      } else if (res.responseCode === 'ER0001') {
+        wx.showToast({
+          title: res.responseMessage,
+          icon: "none"
+        });
+      }
+    }, error => {
+      console.log(error)
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
+  makePhoneCall: function (e) {
+    var phone = e.currentTarget.dataset.phone;
+    wx.makePhoneCall({
+      phoneNumber: phone
+    })
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
+  ordPay: function () {
+    var id = this.data.id
+    payment(id, () => {
+      app.globalData.getOrdList.status = ""
+      app.globalData.getOrdList.tab = "1"
+      wx.switchTab({
+        url: 'list'
+      })
+    })
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  reminderOrd: function () {
+    var id = this.data.id;
+    service({
+      url: '/rest/wx/apis/ord/reminder',
+      data: {
+        id: id
+      },
+      method: 'GET',
+      hideLoading: true
+    }, res => {
+      wx.showToast({
+        title: res.message,
+        duration: 3000,
+        icon: "none",
+        mask: true
+      })
+    }, err => {
+      wx.showToast({
+        title: err,
+        icon: "none",
+        duration: 3000,
+        mask: true
+      })
+    })
   }
 })

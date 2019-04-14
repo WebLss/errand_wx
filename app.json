@@ -11,6 +11,8 @@
     "pages/custom/address/pick",
     "pages/custom/address/search",
     "pages/custom/address/add",
+    "pages/custom/taker/list",
+    "pages/custom/credit/list",
     "pages/logs/logs",
     "pages/camera/camera",
     "pages/camera/canvas"
