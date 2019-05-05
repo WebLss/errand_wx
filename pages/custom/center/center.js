@@ -70,6 +70,10 @@ Page({
        wx.navigateTo({
          url: '../../custom/taker/list',
        }) 
+    } else if (status == 'getReceived') {
+      wx.navigateTo({
+        url: '../../custom/credit/list',
+      })
     }
   }
  

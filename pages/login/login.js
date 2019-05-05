@@ -87,7 +87,7 @@ Page({
                     content: data.data.responseMessage,
                     type: 'error'
                   });
-                
+                  
                   // this.setData({
                   //   errorMsg: data.data.responseMessage
                   // })

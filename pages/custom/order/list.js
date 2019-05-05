@@ -167,6 +167,11 @@ Page({
           content: '确认收货成功',
           type: 'success'
         });
+        this.setData({
+           status: 3,
+           hasNext: true,
+           pageIndex: 1
+        })
         this.onShow();
       } else if (res.status == 301 || res.status == 302){
         wx.showToast({

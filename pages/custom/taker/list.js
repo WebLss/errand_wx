@@ -156,6 +156,9 @@ Page({
     }, res => {
       console.log(res);
       if (res.responseCode == "SC0000") {
+        this.setData({
+          currentIndex: 2
+        });
         $Message({
           content: '接单成功',
           type: 'success'

@@ -26,7 +26,7 @@
     <view class='column-item dfk' bindtap='switchTab' data-index='2' data-status="getOrder">抢单大厅
       <text class="unread" wx:if="{{dfk}}">{{dfk}}</text>
     </view>
-    <view class='column-item qhz' bindtap='switchTab' data-index='3' data-status="wait_get">收入明细
+    <view class='column-item qhz' bindtap='switchTab' data-index='3' data-status="getReceived">收入明细
       <text class="unread" wx:if="{{dqh}}">{{dqh}}</text></view>
     <!-- <view class='column-item shz' bindtap='switchTab' data-index='4' data-status="delivering">待送货
       <text class="unread" wx:if="{{dsh}}">{{dsh}}</text>

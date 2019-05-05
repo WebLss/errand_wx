@@ -1,9 +1,10 @@
 {
-  "pages":[
+  "pages": [
     
     "pages/start/start",
     "pages/auth/auth",
     "pages/login/login",
+    "pages/register/register",
     "pages/index/index",
     "pages/custom/center/center",
     "pages/custom/order/list",
@@ -51,5 +52,6 @@
         "selectedIconPath": "images/hlgerenzhongxin.png"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }
