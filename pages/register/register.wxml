@@ -1,2 +1,10 @@
-<!--pages/register/register.wxml-->
-<text>pages/register/register.wxml</text>
+<i-panel title=" ">
+    <i-input bindchange='setName' name="username" value="" maxlength='200' title="用户名" autofocus placeholder="请输入用户名" />
+    <i-input bindchange='setPwd' value="" type="password" maxlength='200' title="密码" placeholder="请输入密码" />
+    <i-alert type="error" wx:if="{{errorMsg}}">
+       {{errorMsg}}
+    </i-alert>
+    <i-toast id="toast" />
+</i-panel>
+
+<i-button bind:click="bindUser" type="warning" shape="circle" size="small">注册</i-button>

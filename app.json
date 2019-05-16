@@ -14,6 +14,8 @@
     "pages/custom/address/add",
     "pages/custom/taker/list",
     "pages/custom/credit/list",
+    "pages/admin/exam/exam",
+    "pages/admin/entry/entry",
     "pages/logs/logs",
     "pages/camera/camera",
     "pages/camera/canvas"

@@ -14,9 +14,9 @@
   <view class='column-lists'>
     <view class='column-items bws' bindtap='switchIndex' data-index="1">帮我送</view>
     <view class='column-items bwm' bindtap='switchIndex' data-index='2'>帮我买</view>
-    <navigator class='column-items psy' bindtap='isDelivery' wx:if="{{!userInfo.taker&&!userInfo.isSuper}}">申请配送 </navigator>
+    <navigator class='column-items psy' bindtap='isDelivery' wx:if="{{!userInfo.taker&&!userInfo.isSuper}}" bindtap='examIn'>申请配送 </navigator>
      
-    <navigator class='column-items bws' bindtap='isDelivery' wx:if="{{userInfo.isSuper}}">管理入口</navigator>
+    <navigator class='column-items bws' bindtap='entryAdmin' wx:if="{{userInfo.isSuper}}">管理入口</navigator>
   </view>
   <!-- <view class='column-list r-arrow'>
     <text class='column-item'>我的订单</text>

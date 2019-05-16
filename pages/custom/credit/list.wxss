@@ -31,7 +31,7 @@ scroll-view {
   width: 90%;
   padding-right: 10px;
   padding-left: 10px;
-  height: 200rpx;
+  height: 250rpx;
   margin: 20rpx auto;
   background: rgb(238, 233, 233);
   overflow: hidden;

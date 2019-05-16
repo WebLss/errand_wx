@@ -67,14 +67,38 @@ Page({
   switchTab: function(e){
     let status = e.currentTarget.dataset.status;
     if (status == 'getOrder') { // 抢单
-       wx.navigateTo({
-         url: '../../custom/taker/list',
-       }) 
+       if(this.data.wxInfo.taker || this.data.wxInfo.isSuper) {
+         wx.navigateTo({
+           url: '../../custom/taker/list',
+         }) 
+       } else {
+         $Toast({
+           content: '请先成为配送员',
+           type: 'error'
+         });
+       }
+      
     } else if (status == 'getReceived') {
-      wx.navigateTo({
-        url: '../../custom/credit/list',
-      })
+      if (this.data.wxInfo.taker || this.data.wxInfo.isSuper) {
+        wx.navigateTo({
+          url: '../../custom/credit/list',
+        })
+      } else {
+        $Toast({
+          content: '请先成为配送员',
+          type: 'error'
+        });
+      }
     }
+  },
+  examIn: function() {
+    wx.navigateTo({
+      url: '../../admin/exam/exam',
+    })
+  },
+  entryAdmin: function() {
+    wx.navigateTo({
+      url: '../../admin/entry/entry',
+    })
   }
- 
 })
