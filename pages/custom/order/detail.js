@@ -2,6 +2,7 @@ const app = getApp()
 const util = require('../../../utils/util.js');
 const service = util.service;
 const { $Message } = require('../../../dist/base/index');
+
 Page({
   data: {
 
@@ -45,15 +46,39 @@ Page({
       phoneNumber: phone
     })
   },
-  ordPay: function () {
-    var id = this.data.id
-    payment(id, () => {
-      app.globalData.getOrdList.status = ""
-      app.globalData.getOrdList.tab = "1"
-      wx.switchTab({
-        url: 'list'
+  ordPay(e) {
+    var id = e.currentTarget.dataset.id,
+      that = this,
+      status = this.data.status;
+
+    if (id) {
+      service({
+        url: '/order/toPay',
+        data: { orderId: id },
+        method: 'POST'
+      }, res => {
+        if (res.responseCode === 'SC0000') {
+          $Message({
+            content: '支付成功',
+            type: 'success'
+          });
+          this.getOrder({
+            "orderId": id
+          })
+        } else {
+          $Message({
+            content: res.responseMessage,
+            type: 'error'
+          });
+        }
       })
-    })
+    } else {
+      $Message({
+        content: '并无此订单号',
+        type: 'error'
+      });
+    }
+
   },
   reminderOrd: function () {
     var id = this.data.id;

@@ -32,7 +32,7 @@
           </view>
         </view>
         <view class="float-list" wx:if="{{order.orderStatus==1}}">
-        <button class="float-item-right middle-btn-yellow" bindtap='ordPay' plain='false'>立即付款</button>
+        <button class="float-item-right middle-btn-yellow" bindtap='ordPay' plain='false' data-id="{{order.orderId}}">立即付款</button>
 
         </view>
         <view class="float-list" wx:if="{{order.status== 3}}">

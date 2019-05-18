@@ -49,7 +49,7 @@
           <button class="float-item-right middle-btn-yellow" style='font-size:13px;padding: 0px 10px;' plain='false' data-id="{{item.id}}" catchtap='reminderOrd'>我要催单</button>
         </view>
         <view class="float-list" wx:if="{{item.orderStatus==1}}">
-          <button class="float-item-right middle-btn-yellow"  plain='false' catchtap='return false' hover-class='none' data-id="{{item.id}}" catchtap='ordPay'>立即付款</button>
+          <button class="float-item-right middle-btn-yellow"  plain='false' catchtap='return false' hover-class='none' data-id="{{item.orderId}}" catchtap='ordPay'>立即付款</button>
         </view>
         <view class="float-list" wx:if="{{item.orderStatus== 4 }}">
           <button class="float-item-right middle-btn-yellow" style='font-size:13px;padding: 0px 10px;'
@@ -82,7 +82,7 @@
           </view>
         </view>
         <view class="float-list">
-          <button class="float-item-right middle-btn-yellow" wx:if="{{item.orderStatus==1}}" plain='false' hover-class='none' data-id="{{item.id}}" catchtap='ordPay'>立即付款</button>
+          <button class="float-item-right middle-btn-yellow" wx:if="{{item.orderStatus==1}}" plain='false' hover-class='none' data-id="{{item.orderId}}" catchtap='ordPay'>立即付款</button>
         </view>
       </navigator>
     </block>

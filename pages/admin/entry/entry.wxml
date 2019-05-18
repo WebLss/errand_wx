@@ -6,13 +6,15 @@
 
 <i-panel wx:if="{{current == 'tab1'}}" class="cell-panel-demo"  wx:for="{{userList}}"  data-info='{{item}}'>
     <i-cell  title="{{item.name}}" label="{{item.taker ? '配送员':'普通用户'}}" value="{{item.locked?'已被锁定':'未被锁定'}}"></i-cell>
-    <i-cell title="vip状态">
-        <i-switch value="{{switch1}}" bind:change="onChange" slot="footer"></i-switch>
+    <i-cell title="vip状态" wx:if="{{item.taker}}">
+        <view>{{item.isVip?"vip用户":"非vip用户"}}</view>
+        <i-button wx:if="{{!item.isVip}}" bind:click="setVip" data-index="{{item.id}}"  inline type="primary">设置vip</i-button>
+        <i-button wx:if="{{item.isVip}}" bind:click="removeVip" data-index="{{item.id}}"  inline type="primary">关闭vip</i-button>
     </i-cell>
 </i-panel>
 <i-panel wx:if="{{current == 'tab2'}}" class="cell-panel-demo"  wx:for="{{examList}}"  data-info='{{item}}'>
     <i-cell  title="{{item.name}}" label="{{item.phone}}" value="{{item.reason}}"></i-cell>
 
-    <i-button bind:click="passExam(item.userId,item.id)" inline type="primary">确定通过</i-button>
+    <i-button bind:click="passExam" data-index="{{item.id}}"  inline type="primary">确定通过</i-button>
 </i-panel>
 <i-toast id="toast" />

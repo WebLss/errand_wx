@@ -66,8 +66,80 @@ Page({
     }
     
   },
-  passExam(userId, id) {
-     
-  }
+  passExam($event) {
+    console.log($event)
+    var _data = {
+      id: $event.currentTarget.dataset.index
+    }
+    service({
+      url: '/adm/pass',
+      data: _data,
+      method: 'POST'
+    }, (data) => {
+      console.log(data);
+      if (data.responseCode == "SC0000") {
+        $Toast({
+          content: '操作成功！',
+          type: 'success'
+        });
+        this.initData('tab2');
+      } else {
+        $Toast({
+          content: data.responseMessage,
+          type: 'error'
+        });
+      }
+    })
+  },
+  setVip($event) {
+    var _data = {
+      id: $event.currentTarget.dataset.index
+    }
+    service({
+      url: '/adm/vip',
+      data: _data,
+      method: 'POST'
+    }, (data) => {
+      console.log(data);
+      if (data.responseCode == "SC0000") {
+        $Toast({
+          content: '操作成功！',
+          type: 'success'
+        });
+        this.initData('tab1');
+      } else {
+        $Toast({
+          content: data.responseMessage,
+          type: 'error'
+        });
+      }
+    })
+   
+  },
+  removeVip($event) {
+    var _data = {
+      id: $event.currentTarget.dataset.index
+    }
+    service({
+      url: '/adm/removeVip',
+      data: _data,
+      method: 'POST'
+    }, (data) => {
+      console.log(data);
+      if (data.responseCode == "SC0000") {
+        $Toast({
+          content: '操作成功！',
+          type: 'success'
+        });
+        this.initData('tab1');
+      } else {
+        $Toast({
+          content: data.responseMessage,
+          type: 'error'
+        });
+      }
+    })
+
+  },
 
 });

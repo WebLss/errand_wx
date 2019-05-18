@@ -220,6 +220,31 @@ Page({
     var id = e.currentTarget.dataset.id,
       that = this,
       status = this.data.status;
+
+    if (id) {
+      service({
+        url: '/order/toPay',
+        data: { orderId: id },
+        method: 'POST'
+      }, res => {
+        if (res.responseCode === 'SC0000') {
+          $Message({
+            content: '支付成功',
+            type: 'success'
+          });
+        } else {
+          $Message({
+            content: res.responseMessage,
+            type: 'error'
+          });
+        }
+      })
+    } else {
+      $Message({
+        content: '并无此订单号',
+        type: 'error'
+      });
+    }
     
   },
   reminderOrd: function (e) {
