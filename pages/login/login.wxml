@@ -7,7 +7,7 @@
 
 <i-panel title=" ">
     <i-input bindchange='setName' name="username" value="{{username}}" maxlength='100' title="用户名" autofocus placeholder="请输入用户名" />
-    <i-input bindchange='setPwd' value="dds" type="password" title="密码" maxlength='100' placeholder="请输入密码" />
+    <i-input bindchange='setPwd' autofocus type="password" title="密码" maxlength='200' placeholder="请输入密码" />
     <i-alert type="error" wx:if="{{errorMsg}}">
        {{errorMsg}}
     </i-alert>
