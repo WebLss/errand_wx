@@ -78,9 +78,9 @@ Page({
                     type: 'success'
                   });
                   setTimeout(()=> {
-                    wx.switchTab({
+                    wx.redirectTo({
                       url: '/pages/start/start',
-                    })
+                    });
                   },1500)
                 } else {
                   $Toast({
