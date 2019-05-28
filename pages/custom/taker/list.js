@@ -164,6 +164,11 @@ Page({
           type: 'success'
         });
         this.onShow();
+      } else {
+        $Message({
+          content: '接单失败',
+          type: 'error'
+        });
       }
 
       
